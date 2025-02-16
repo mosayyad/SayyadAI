@@ -1,10 +1,8 @@
 <html>
 <head>
+  <base href="/">
   <title>SayyadAI</title>
   <link rel="icon" href="https://chat.openai.com/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="css/sidebar-update.css">
-  <link rel="stylesheet" href="css/style.css.css">
-  <script src="js/script.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -111,7 +109,7 @@
         max-width: 1000px;
         margin: 0 auto;
         width: 100%;
-        padding: 20px;
+        padding: 20px 20px 120px;
         height: 100%;
         position: relative;
     }
@@ -136,6 +134,8 @@
       transform: translateY(20px);
       opacity: 0;
       animation: messageSlideIn 0.4s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+      border: 1px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(4px);
     }
 
     .assistant-message {
@@ -145,6 +145,8 @@
       transform: translateY(20px);
       opacity: 0;
       animation: messageSlideIn 0.4s 0.1s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+      border: 1px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(4px);
     }
 
     .assistant-message::after {
@@ -176,27 +178,27 @@
         bottom: 0;
         left: 260px;
         right: 0;
-        background: #343541;
+        background: var(--sidebar-bg);
         padding: 20px;
         display: flex;
         gap: 10px;
         max-width: 1000px;
         margin: 0 auto;
         width: calc(100% - 260px);
-        border-top: 1px solid #4A4B53;
+        border-top: 1px solid var(--border-color);
         z-index: 100;
+        backdrop-filter: blur(8px);
     }
 
     textarea {
         flex: 1;
-        padding: 12px;
-        border: 1px solid #4A4B53;
-        border-radius: 12px;
+        padding: 16px;
+        border: 1px solid var(--border-color);
+        border-radius: 16px;
         resize: none;
-        height: 50px;
-        background: #40414F;
-        color: #ECECF1;
-        font-family: Söhne, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, Cantarell, "Noto Sans", sans-serif, "Helvetica Neue", Arial;
+        height: 60px;
+        background: var(--input-bg);
+        color: var(--text-color);
         font-size: 16px;
         line-height: 1.5;
         transition: all 0.2s ease;
@@ -212,13 +214,10 @@
     }
 
     button {
-        padding: 10px 20px;
-        background: #19C37D;
-        color: white;
-        border: none;
-        border-radius: 12px;
-        cursor: pointer;
-        transition: background 0.3s, all 0.2s ease;
+        padding: 12px 24px;
+        border-radius: 14px;
+        font-weight: 500;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     button:hover {
@@ -348,10 +347,10 @@
 
     .scroll-bottom-btn {
       position: fixed;
-      bottom: 100px;
+      bottom: 110px;
       right: 30px;
-      width: 45px;
-      height: 45px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       background: #19C37D;
       color: white;
@@ -363,6 +362,8 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
       transition: all 0.3s ease;
       z-index: 100;
+      backdrop-filter: blur(4px);
+      border: 1px solid var(--border-color);
     }
 
     .scroll-bottom-btn:hover {
@@ -422,6 +423,87 @@
     ::-webkit-scrollbar-thumb:hover {
         background: #565869;
     }
+
+    @media (max-width: 768px) {
+        .sidebar {
+            width: 100%;
+            height: 60px;
+            flex-direction: row;
+            padding: 12px;
+            gap: 12px;
+        }
+
+        .main-content {
+            margin-left: 0;
+            padding-top: 60px;
+            padding-bottom: 120px;
+        }
+
+        .input-container {
+            left: 0;
+            width: 100%;
+            padding: 16px;
+            bottom: env(safe-area-inset-bottom);
+        }
+
+        textarea {
+            height: 54px;
+            font-size: 15px;
+        }
+
+        .chat-container {
+            padding: 16px;
+        }
+
+        .message {
+            padding: 14px;
+            font-size: 15px;
+            border-radius: 14px;
+        }
+
+        .settings-modal {
+            width: 90%;
+            padding: 16px;
+        }
+
+        .scroll-bottom-btn {
+            right: 16px;
+            bottom: 90px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .new-chat-btn, .settings-btn {
+            padding: 10px 14px;
+            border-radius: 10px;
+        }
+
+        textarea {
+            height: 48px;
+            padding: 14px;
+        }
+
+        button {
+            padding: 10px 20px;
+        }
+
+        .message {
+            padding: 12px;
+            font-size: 14px;
+        }
+
+        .scroll-bottom-btn {
+            width: 44px;
+            height: 44px;
+            bottom: 80px;
+        }
+    }
+
+    @keyframes floating {
+        0% { transform: translateY(0); }
+        50% { transform: translateY(-4px); }
+        100% { transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
@@ -442,7 +524,7 @@
   <div class="main-content">
       <div class="chat-container">
           <div class="model-selector">
-              AI Model:
+              ChatGPT Model:
               <select id="modelSelect">
                   <option value>Loading models...</option>
               </select>
