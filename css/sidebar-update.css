@@ -2,20 +2,18 @@
   background: var(--sidebar-bg);
   border: 1px solid var(--accent-color);
   animation: modalEntry 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-}
-
-@keyframes modalEntry {
-  from {
-    transform: translate(-50%, -50%) scale(0.8);
-    opacity: 0;
-  }
-  to {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
-  }
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.1);
 }
 
 .new-chat-btn:hover {
   background: var(--accent-color);
   box-shadow: 0 0 15px var(--accent-color);
+  animation: floating 3s ease infinite;
+}
+
+@keyframes gradientPulse {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
